@@ -30,7 +30,7 @@ class ExerciseTest {
         Assert.assertTrue(student.size() >= 10);
     }
     @Test
-    void listTopTenStudentHighScore(){
+    void listTopTenStudentHighScore_01(){
         List<Student> students = Exercise.createListStudent();
         List<Student> result = new ArrayList<>();
         try{
@@ -42,26 +42,34 @@ class ExerciseTest {
         Assert.assertTrue(result.size() == 10);
     }
     @Test
-    void finalPoint(){
+    void listTopTenStudentHighScore_02(){
         List<Student> students = Exercise.createListStudent();
-        Map<Student,Double> result = new HashMap<>();
+        List<Student> result = new ArrayList<>();
         try{
-            result = Exercise.finalPoint(students);
+            result = Exercise.listTopTenStudentHighScore(students);
+            var expected = prepareData();
+            Assert.assertEquals(expected.size(),result.size());
+            for (Student item: result) {
+                Assert.assertTrue(expected.contains(item.getStudentID()));
+            }
         }catch (Exception ex) {
             Assert.fail();
         }
 
-        Assert.assertTrue(result.size() == 18);
     }
-    @Test
-    void top10LowestFinalPoint() throws Exception {
-        List<Student> students = Exercise.createListStudent();
-        Map<Student,Double> result = Exercise.finalPoint(students);
-        try{
-            Map<Student,Double> top10= Exercise.top10LowestFinalPoint(result);
-            Assert.assertTrue(top10.size() == 10);
-        }catch (Exception ex) {
-            Assert.fail();
-        }
+
+    public List<Integer> prepareData() {
+        List<Integer> students = new ArrayList<>();
+        students.add(18424103);
+        students.add(18424017);
+        students.add(18424013);
+        students.add(18424014);
+        students.add(18424005);
+        students.add(18424015);
+        students.add(18424018);
+        students.add(18424102);
+        students.add(18424100);
+        students.add(18424019);
+        return students;
     }
 }
